@@ -1,0 +1,48 @@
+---
+import { time } from "../scripts/headerTime.ts";
+const { printDate, printTime } = time;
+---
+
+<header class="flex justify-between items-start w-full text-cmdColor px-4">
+  <div class="flex justify-between items-center w-60 py-2">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      style="fill: rgba(74, 222, 128, 1);transform: ;msFilter:;"
+      ><path
+        d="M8.293 6.293 2.586 12l5.707 5.707 1.414-1.414L5.414 12l4.293-4.293zm7.414 11.414L21.414 12l-5.707-5.707-1.414 1.414L18.586 12l-4.293 4.293z"
+      ></path></svg
+    >
+    <h1 class="text-2xl font-font">Diego Correa</h1>
+  </div>
+  <div class="flex justify-between items-center w-60 py-7 text-1xl font-font">
+    <p class="register">{printTime()}</p>
+    <p>|</p>
+    <p class="date">{printDate()}</p>
+  </div>
+</header>
+
+<script>
+  if (typeof window !== "undefined") {
+    const dateElement = document.querySelector(".date") as HTMLElement;
+    const registerElement = document.querySelector(".register") as HTMLElement;
+    
+    if (dateElement && registerElement) {
+      function updateDateTime() {
+        const now = new Date();
+        dateElement.textContent = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
+        
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        registerElement.textContent = `${hours}:${minutes}:${seconds}`;
+      }
+      
+      updateDateTime();
+      
+      setInterval(updateDateTime, 1000);
+    }
+  }
+</script>
